@@ -20,8 +20,8 @@ Entorno local de **PostgreSQL 15 + pgAdmin 4** levantado con Docker Compose, y u
 |---|---|
 | [`lab_fundamentos`](labs/lab_fundamentos/script.sql) | `CREATE TABLE`, `SERIAL PRIMARY KEY`, `NOT NULL`, `DEFAULT CURRENT_DATE`, inserción de registros. |
 | [`lab_restricciones`](labs/lab_restricciones/script.sql) | `UNIQUE`, `CHECK` (precios y stock no negativos, totales mayores a 0), `REFERENCES` (llave foránea de `pedidos` a `cliente`), `DEFAULT now()`. |
-| [`lab_claves`](labs/lab_claves/script.sql) | Llaves primarias y foráneas. |
-| [`lab_integridad`](labs/lab_integridad/script.sql) | Integridad referencial. |
+| [`lab_claves`](labs/lab_claves/script.sql) | Llave primaria natural (`categorias.codigo`), llave primaria **compuesta** (`detalle_pedido`), llaves foráneas, relación muchos a muchos y consultas con `JOIN`. |
+| [`lab_integridad`](labs/lab_integridad/script.sql) | Acciones referenciales `ON DELETE CASCADE` / `RESTRICT`, manejo de errores con bloques `DO ... EXCEPTION` y **transacciones** (`BEGIN` / `COMMIT`, reversión ante stock insuficiente). |
 
 ## Cómo ejecutarlo
 
@@ -37,11 +37,13 @@ docker compose up -d
 # 3. Ejecuta los laboratorios en orden
 docker compose exec -T postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < labs/lab_fundamentos/script.sql
 docker compose exec -T postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < labs/lab_restricciones/script.sql
+docker compose exec -T postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < labs/lab_claves/script.sql
+docker compose exec -T postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < labs/lab_integridad/script.sql
 ```
 
 pgAdmin queda disponible en `http://localhost:8080` (o el puerto que definas en `PGADMIN_PORT`). Para registrar el servidor usa el host `postgres` y el puerto `5432`.
 
-> `lab_restricciones` depende de la tabla `cliente` creada en `lab_fundamentos`, por eso deben ejecutarse en ese orden.
+> Cada laboratorio usa las tablas del anterior, así que deben ejecutarse en orden y sobre una base de datos nueva (`docker compose down -v` la reinicia).
 
 ## Autora
 
