@@ -45,4 +45,4 @@ pgAdmin queda disponible en `http://localhost:8080` (o el puerto que definas en 
 
 ## Autora
 
-**Dayan Lorena Mape Forero**, estudiante de Tecnología en Análisis y Desarrollo de Software, Bogotá, Colombia. [GitHub](https://github.com/mpdayan1804)
+**Dayan Lorena Mape Forero**, estudiante de Tecnología en Desarrollo y Análisis de Datos, Bogotá, Colombia. [GitHub](https://github.com/mpdayan1804)
